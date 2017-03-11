@@ -39,7 +39,10 @@ module Embulk
           column_names = @schema.map(&:name)
 
           Plugin.get_rows(@url, @api_key).each do |row|
-            page_builder.add(row.values_at(*column_names))
+            values = schema.map do |col|
+              convert(col.type, row[col.name])
+            end
+            page_builder.add(values)
           end
 
           page_builder.finish
@@ -65,6 +68,15 @@ module Embulk
           data = JSON.parse(res.body)
 
           data['query_result']['data']['rows']
+        end
+
+        def convert(type, value)
+          case type
+          when :timestamp
+            Time.parse(value)
+          else
+            value
+          end
         end
       end
     end
