@@ -1,4 +1,4 @@
-require 'rest-client'
+require_relative './client'
 
 module Embulk
   module Input
@@ -24,7 +24,7 @@ module Embulk
         end
 
         def self.guess(_config)
-          sample_records = get_rows(_config['url'], _config['api_key']).first(10)
+          sample_records = Client.get_rows(_config['url'], _config['api_key']).first(10)
           columns = Guess::SchemaGuess.from_hash_records(sample_records)
           {columns: columns}
         end
@@ -35,7 +35,7 @@ module Embulk
         end
 
         def run
-          Plugin.get_rows(@url, @api_key).each do |row|
+          Client.get_rows(@url, @api_key).each do |row|
             values = schema.map do |col|
               convert(col.type, row[col.name])
             end
@@ -57,13 +57,6 @@ module Embulk
         end
 
         private
-
-        def self.get_rows(url, api_key)
-          res = RestClient.get(url, params: {api_key: api_key})
-          data = JSON.parse(res.body)
-
-          data['query_result']['data']['rows']
-        end
 
         def convert(type, value)
           case type
