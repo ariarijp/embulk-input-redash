@@ -21,7 +21,6 @@ module Embulk
           task_reports = yield(task, columns, count)
 
           next_config_diff = {}
-          next_config_diff
         end
 
         def self.guess(_config)
@@ -36,8 +35,6 @@ module Embulk
         end
 
         def run
-          column_names = @schema.map(&:name)
-
           Plugin.get_rows(@url, @api_key).each do |row|
             values = schema.map do |col|
               convert(col.type, row[col.name])
@@ -47,7 +44,7 @@ module Embulk
 
           page_builder.finish
 
-          task_report = {}
+          {}
         end
 
         def self.embulk_columns(config)
