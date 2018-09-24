@@ -5,8 +5,8 @@ embulk-input-redash is the Embulk input plugin for [Redash](https://redash.io).
 ## Overview
 
 * **Plugin type**: input
-* **Resume supported**: yes
-* **Cleanup supported**: yes
+* **Resume supported**: no
+* **Cleanup supported**: no
 * **Guess supported**: yes
 
 ## Configuration
