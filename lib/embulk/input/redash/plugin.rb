@@ -1,4 +1,5 @@
 require_relative './client'
+require_relative './converter'
 
 module Embulk
   module Input
@@ -37,7 +38,7 @@ module Embulk
         def run
           Client.get_rows(@url, @api_key).each do |row|
             values = schema.map do |col|
-              convert(col.type, row[col.name])
+              Converter.convert(col.type, row[col.name])
             end
             page_builder.add(values)
           end
@@ -53,17 +54,6 @@ module Embulk
             type = column['type'].to_sym
 
             Column.new(nil, name, type, column['format'])
-          end
-        end
-
-        private
-
-        def convert(type, value)
-          case type
-          when :timestamp
-            Time.parse(value)
-          else
-            value
           end
         end
       end
