@@ -8,8 +8,8 @@ module Embulk
 
         def self.transaction(config, &control)
           task = {
-            'url' => config.param('url', :string),
-            'api_key' => config.param('api_key', :string)
+            url: config.param('url', :string),
+            api_key: config.param('api_key', :string)
           }
 
           columns = embulk_columns(config)
@@ -27,7 +27,7 @@ module Embulk
         def self.guess(_config)
           sample_records = get_rows(_config['url'], _config['api_key']).first(10)
           columns = Guess::SchemaGuess.from_hash_records(sample_records)
-          { 'columns' => columns }
+          {columns: columns}
         end
 
         def init
@@ -48,8 +48,6 @@ module Embulk
           page_builder.finish
 
           task_report = {}
-
-          task_report
         end
 
         def self.embulk_columns(config)
@@ -64,7 +62,7 @@ module Embulk
         private
 
         def self.get_rows(url, api_key)
-          res = RestClient.get(url, params: { 'api_key' => api_key })
+          res = RestClient.get(url, params: {api_key: api_key})
           data = JSON.parse(res.body)
 
           data['query_result']['data']['rows']
