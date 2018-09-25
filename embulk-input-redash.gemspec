@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = "embulk-input-redash"
-  spec.version = "0.1.1"
+  spec.version = "0.1.2"
   spec.authors = ["ariarijp"]
   spec.summary = "Redash input plugin for Embulk"
   spec.description = "Loads records from Redash."
