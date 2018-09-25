@@ -1,6 +1,7 @@
 # Redash input plugin for Embulk
 
 [![Gem Version](https://badge.fury.io/rb/embulk-input-redash.svg)](https://badge.fury.io/rb/embulk-input-redash)
+[![CircleCI](https://circleci.com/gh/ariarijp/embulk-input-redash.svg?style=svg)](https://circleci.com/gh/ariarijp/embulk-input-redash)
 
 embulk-input-redash is the Embulk input plugin for [Redash](https://redash.io).
 
