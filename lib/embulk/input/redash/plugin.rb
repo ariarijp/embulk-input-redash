@@ -4,6 +4,7 @@ require_relative './converter'
 module Embulk
   module Input
     module Redash
+      # Redash input plugin for Embulk
       class Plugin < InputPlugin
         ::Embulk::Plugin.register_input('redash', self)
 
@@ -19,13 +20,14 @@ module Embulk
         end
 
         def self.resume(task, columns, count)
-          task_reports = yield(task, columns, count)
+          yield(task, columns, count)
 
-          next_config_diff = {}
+          {}
         end
 
-        def self.guess(_config)
-          sample_records = Client.get_rows(_config['url'], _config['api_key']).first(10)
+        def self.guess(config)
+          sample_records = Client.get_rows(config['url'], config['api_key'])
+                                 .first(10)
           columns = Guess::SchemaGuess.from_hash_records(sample_records)
           { columns: columns }
         end

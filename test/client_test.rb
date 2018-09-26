@@ -16,8 +16,16 @@ class ClientTest < Test::Unit::TestCase
             { 'foo' => 'hoge', 'bar' => 'fuga' }
           ],
           'columns' => [
-            { 'name' => 'foo', 'type' => 'string', 'friendly_name' => 'foo' },
-            { 'name' => 'bar', 'type' => 'integer', 'friendly_name' => 'foo' }
+            {
+              'name' => 'foo',
+              'type' => 'string',
+              'friendly_name' => 'foo'
+            },
+            {
+              'name' => 'bar',
+              'type' => 'integer',
+              'friendly_name' => 'foo'
+            }
           ]
         },
         'id' => 123,
@@ -27,7 +35,7 @@ class ClientTest < Test::Unit::TestCase
 
     stub_request(:get, "#{url}?api_key=#{api_key}")
       .to_return(status: 200, body: stub_body.to_json, headers: {})
-
-    assert_equal([{ 'foo' => 'hoge', 'bar' => 'fuga' }], Client.get_rows(url, api_key))
+    expected = [{ 'foo' => 'hoge', 'bar' => 'fuga' }]
+    assert_equal(expected, Client.get_rows(url, api_key))
   end
 end
