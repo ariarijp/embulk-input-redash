@@ -27,7 +27,7 @@ module Embulk
         def self.guess(_config)
           sample_records = Client.get_rows(_config['url'], _config['api_key']).first(10)
           columns = Guess::SchemaGuess.from_hash_records(sample_records)
-          {columns: columns}
+          { columns: columns }
         end
 
         def init
