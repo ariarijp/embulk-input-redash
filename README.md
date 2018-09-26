@@ -14,8 +14,8 @@ embulk-input-redash is the Embulk input plugin for [Redash](https://redash.io).
 
 ## Configuration
 
-- **url**: description (string, required)
-- **api_key**: description (string, required)
+- **url**: URL of Query Result (string, required)
+- **api_key**: API Key (string, required)
 
 ## Example
 
