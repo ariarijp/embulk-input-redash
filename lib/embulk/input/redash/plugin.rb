@@ -8,7 +8,7 @@ module Embulk
       class Plugin < InputPlugin
         ::Embulk::Plugin.register_input('redash', self)
 
-        def self.transaction(config, &control)
+        def self.transaction(config, &_control)
           task = {
             url: config.param('url', :string),
             api_key: config.param('api_key', :string)
@@ -16,13 +16,9 @@ module Embulk
 
           columns = embulk_columns(config)
 
-          resume(task, columns, 1, &control)
-        end
+          task_reports = yield(task, columns, 1)
 
-        def self.resume(task, columns, count)
-          yield(task, columns, count)
-
-          {}
+          task_reports.first
         end
 
         def self.guess(config)
@@ -54,8 +50,9 @@ module Embulk
           config.param(:columns, :array).map do |column|
             name = column['name']
             type = column['type'].to_sym
+            format = column['format']
 
-            Column.new(nil, name, type, column['format'])
+            Column.new(nil, name, type, format)
           end
         end
       end
