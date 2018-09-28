@@ -13,9 +13,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'rest-client'
-  spec.add_development_dependency 'bundler', ['>= 1.10.6']
-  spec.add_development_dependency 'embulk', ['>= 0.8.17']
-  spec.add_development_dependency 'rake', ['>= 10.0']
-  spec.add_development_dependency 'test-unit'
-  spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'bundler', ['>= 1.16.1']
+  spec.add_development_dependency 'embulk', ['>= 0.8.39']
+  spec.add_development_dependency 'rake', ['>= 12.3.1']
+  spec.add_development_dependency 'test-unit', ['>= 3.2.8']
+  spec.add_development_dependency 'webmock', ['>= 3.4.2']
 end
